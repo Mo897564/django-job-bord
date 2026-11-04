@@ -31,11 +31,13 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+# my_app
     'job',
     'blog',
     'account',
     'contact',
     'home',
+##############
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -80,7 +82,7 @@ WSGI_APPLICATION = 'my_project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'mysql',
+        'NAME': 'job_bord_db',
         'USER': 'root',
         'PASSWORD': 'M125X@nnA',
         'HOST': 'localhost',
