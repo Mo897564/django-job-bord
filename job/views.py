@@ -1,6 +1,11 @@
-from django.shortcuts import render , get_object_or_404 , redirect
+from django.shortcuts import render , redirect , get_object_or_404
 
 from . models import *
+from . form import *
+
+from django.core.paginator import Paginator
+
+
 
 # Create your views here.
 
@@ -8,8 +13,16 @@ def job_list(request):
 
     job_list = job.objects.all()
 
+
+    paginator = Paginator(job_list , 3)
+    page_num = request.GET.get('page')
+    page_obj = paginator.get_page(page_num)
+
+
+
+
     context = {
-            'job_list' : job_list
+            'job_list' : page_obj ,
         
         }
 
@@ -19,13 +32,53 @@ def job_list(request):
 
 
 
-def job_details(request , id):
+def job_details(request , slug):
         
-    job_details = job.objects.get(id=id)
+    job_details = get_object_or_404(job , slug=slug)
+
+    if request.method == 'POST':
+        form_aplay = ApllyForm(request.POST , request.FILES)
+        if form_aplay.is_valid():
+            myform = form_aplay.save(commit=False)
+            myform.job = job_details
+            myform.save()
+            return redirect('job_list')
+    else:    
+
+        form_aplay = ApllyForm()
+
 
     context = {
-            'job' : job_details
-        
+            'job' : job_details,
+            'formapply' : form_aplay       
         }
 
     return render(request , 'jobs/job_details.html' , context=context)
+
+
+
+
+def add_job(request):
+
+    if request.method == 'POST':
+        form_add = AddForm(request.POST , request.FILES) 
+        if form_add.is_valid():
+            myform  = form_add.save(commit=False)
+            myform.user = request.user
+            myform.save() 
+
+            return redirect('job_list')
+
+
+    else:
+        form_add =AddForm()        
+
+
+    context = {
+
+       'formadd' : form_add ,
+        
+        }
+    
+    
+    return render(request , 'jobs/add_job.html' , context=context)

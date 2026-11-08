@@ -1,5 +1,9 @@
 from django.db import models
 
+from django.utils.text import slugify
+
+from django.contrib.auth.models import User
+
 # Create your models here.
 
 
@@ -20,6 +24,7 @@ class job(models.Model):
         
     )
 
+    user = models.ForeignKey(User ,  related_name='user_job'  ,on_delete=models.CASCADE)
 
     title = models.CharField(max_length=100)
     # location = models.
@@ -32,8 +37,31 @@ class job(models.Model):
     Category = models.ForeignKey(Categry , on_delete=models.SET_NULL , null=True , blank=True)
     experience = models.IntegerField(default=1)
 
+
+    slug = models.SlugField( null=True , blank=True , unique=True)
+    def save(self , *args , **kwarges):
+        self.slug = slugify(self.title)
+        super(job,self).save(*args , **kwarges)
+
+
+
+
     def __str__(self):
-        return self.titel
+        return self.title
 
 
 
+
+class Apply(models.Model):
+
+    job = models.ForeignKey(job , related_name='apply_job'  ,on_delete=models.CASCADE)
+    name = models.CharField(max_length=50)
+    email = models.EmailField(max_length=100)
+    phone = models.CharField(max_length=50)
+    websit = models.URLField()
+    cv = models.FileField(upload_to='applay/cvs/%m/%d')
+    cover_letter = models.TextField(max_length=500)
+    created_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name

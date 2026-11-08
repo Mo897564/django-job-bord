@@ -3,6 +3,7 @@ Job :
 - location
 - job type
 - description
+- img
 - published at
 - vacancy 
 - salary

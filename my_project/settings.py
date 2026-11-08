@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'account',
     'contact',
     'home',
+    'django_bootstrap5',
 ##############
     'django.contrib.admin',
     'django.contrib.auth',

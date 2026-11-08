@@ -7,4 +7,5 @@ from . models import *
 
 admin.site.register(job)
 admin.site.register(Categry)
+admin.site.register(Apply)
 
