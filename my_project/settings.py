@@ -36,7 +36,7 @@ INSTALLED_APPS = [
 # my_app
     'job',
     'blog',
-    'account',
+    'accounts',
     'contact',
     'home',
     'django_bootstrap5',
