@@ -15,16 +15,6 @@ Job :
 -- post job
 
 
-Blog:
-
-- titel
-- description
-- created at
-- categry
-- tags
-- author
-
-
 -- search
 -- commant
 -- recent post
