@@ -7,14 +7,16 @@ env/
 # Python
 __pycache__/
 *.py[cod]
-*.pyo
 
 # Django
 db.sqlite3
 *.sqlite3
 *.log
-media/
 staticfiles/
+
+# User uploads
+media/applay/
+media/photos/profile/
 
 # Secrets
 .env
