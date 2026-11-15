@@ -1,6 +1,7 @@
 from django.shortcuts import render , redirect
 
 from django.contrib.auth import  login , authenticate
+from django.contrib.auth.decorators import  login_required 
 
 from . form import *
 from . models import *
@@ -44,7 +45,7 @@ def SignUp(request):
 
 
 
-
+login_required
 def profile(request):
 
    profile = Profile.objects.get(user= request.user)
@@ -61,7 +62,7 @@ def profile(request):
 
 
 
-
+login_required
 def profile_edit(request):
 
    profile = Profile.objects.get(user= request.user)

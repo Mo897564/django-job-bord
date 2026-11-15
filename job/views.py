@@ -1,9 +1,10 @@
 from django.shortcuts import render , redirect , get_object_or_404
-
-from . models import *
-from . form import *
-
+from django.contrib.auth.decorators import login_required 
 from django.core.paginator import Paginator
+from .filters import Filter_Job
+from .models import *
+from .form import *
+
 
 
 
@@ -14,15 +15,17 @@ def job_list(request):
     job_list = job.objects.all()
 
 
+    filter  = Filter_Job(request.GET , queryset= job_list)
+    job_list = filter.qs
+
     paginator = Paginator(job_list , 3)
     page_num = request.GET.get('page')
     page_obj = paginator.get_page(page_num)
 
 
-
-
     context = {
             'job_list' : page_obj ,
+            'filter' : filter
         
         }
 
@@ -57,7 +60,7 @@ def job_details(request , slug):
 
 
 
-
+@login_required
 def add_job(request):
 
     if request.method == 'POST':

@@ -35,10 +35,10 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
 # my_app
     'job',
-    'blog',
     'accounts',
     'contact',
     'home',
+    'django_filters',
     'django_bootstrap5',
 ##############
     'django.contrib.admin',
@@ -142,10 +142,19 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/6.1/topics/email/#topic-email-configuration
 
 MAILERS = {
-    'default': {
-        'BACKEND': 'django.core.mail.backends.console.EmailBackend',
+    "default": {
+        "BACKEND": "django.core.mail.backends.smtp.EmailBackend",
+        "OPTIONS": {
+            "host": "smtp.gmail.com",
+            "port": 587,
+            "use_tls": True,
+            "username": "mostttafffahhmeed@gmail.com",
+            "password": "ohzqimnnsirdgjnh",
+        },
     },
 }
+
+DEFAULT_FROM_EMAIL = "mostttafffahhmeed@gmail.com"
 
 
 # MEDIA
